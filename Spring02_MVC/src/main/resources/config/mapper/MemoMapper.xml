@@ -27,7 +27,7 @@
 		select * from(
 		select row_number() over(order by no desc) rn,
 		memo.* from memo)
-		<![CDATA[where rn > #{start} and rn < #{end}]]> 
+		<![CDATA[where rn > #{start} and rn < #{end}]]>
 		<!-- 부등호 등의 문자가 나올때는 CDATA Section으로 감싸자. CDATA는 Character Data라는
 		 의미. CDATA로 감싸진 부분은 xml문서로 파싱하지 않고 문자로 취급한다 -->
 		 <!-- where rn &gt; #{start} and rn &lt; #{end} -->

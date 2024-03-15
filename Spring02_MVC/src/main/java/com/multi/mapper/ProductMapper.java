@@ -24,4 +24,11 @@ public interface ProductMapper {
 	
 	// 삭제
 	int productDelete(int pnum);
+
+	ProductVO getProduct(int pnum);
+	
+	// 수정
+	int productUpdate(ProductVO prod);
+
+	List<ProductVO> selectByPspec(String pspec);
 }
