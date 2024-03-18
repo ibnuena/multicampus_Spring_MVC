@@ -217,3 +217,26 @@ desc downcategory;
 desc products;
 desc member;
 
+
+--------------------------------------------------------------------------
+-- 3/18
+
+select c.*, p.pname, p.pimage1, price, saleprice, point
+, (c.pqty *p.saleprice ) totalPrice
+, (c.pqty * P.pqty) totalPoint
+from cart c join products p
+on c.pnum = p.pnum;
+
+-- 장바구니 뷰를 생성
+create or replace view cartView
+as
+select c.*, p.pname, p.pimage1, price, saleprice, point
+, (c.pqty *p.saleprice ) totalPrice
+, (c.pqty * P.pqty) totalPoint
+from cart c join products p
+on c.pnum = p.pnum;
+
+select * from cartView where userid='hong123';
+
+select sum(totalPrice) totalPrice, sum(totalPoint) totalPoint
+from cartView where userid='hong123';

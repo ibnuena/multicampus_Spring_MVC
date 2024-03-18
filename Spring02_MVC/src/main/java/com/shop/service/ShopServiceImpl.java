@@ -68,8 +68,21 @@ public class ShopServiceImpl implements ShopService {
 
 	@Override
 	public int editCart(CartVO cartVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		// 수량이 양수 -> 수정
+		// 수량이 0 -> 삭제
+		// 수량이 음수 -> 예외 처리
+		
+		int qty = cartVo.getPqty();
+		
+		if(qty>50) {
+			throw new NumberFormatException("수량은 50개 이내로만 수정 가능합니다"); // Runtime계열 예외는 throws 생략 가능
+		}else if(qty>0) {
+			return cartMapper.editCart(cartVo);
+		}else if(qty==0) {
+			return cartMapper.delCart(cartVo.getCnum());
+		}else {
+			throw new NumberFormatException("수량은 음수로 입력할 수 없습니다.");
+		}
 	}
 
 	@Override
@@ -80,14 +93,12 @@ public class ShopServiceImpl implements ShopService {
 
 	@Override
 	public int delCart(int cartNum) {
-		// TODO Auto-generated method stub
-		return 0;
+		return cartMapper.delCart(cartNum);
 	}
 
 	@Override
 	public int delCartAll(CartVO cartVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return cartMapper.delCartAll(cartVo.getUserid());
 	}
 
 	@Override
@@ -98,8 +109,7 @@ public class ShopServiceImpl implements ShopService {
 
 	@Override
 	public CartVO getCartTotal(String userid) {
-		// TODO Auto-generated method stub
-		return null;
+		return cartMapper.getCartTotal(userid);
 	}
 
 	@Override
