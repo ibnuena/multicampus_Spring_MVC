@@ -4,15 +4,15 @@
 
 <!-- idCheckResult.jsp -->
 <style>
-	.wrap header, footer{
+	.jumbotron, .navbar{
 		display: none;
 	}
 </style>
 <script>
 	function id_check(){
-		if(!idf.id.value){
+		if(!idf.userid.value){
 			alert('아이디를 입력하세요');
-			idf.id.focus();
+			idf.userid.focus();
 			return false;
 		}
 		return true;
@@ -20,7 +20,7 @@
 	function setId(uid){
 		// window>document>form
 		// opener ==> 부모창(window 객체)
-		opener.document.mf.id.value = uid;
+		opener.document.mf.userid.value = uid;
 		
 		// self -> 자기자신 창 닫기
 		self.close();
@@ -28,10 +28,10 @@
 </script>
 <div class="container">
 	<br>
-	<form name="idf" action="idCheck.do" method="post" onsubmit="return id_check()">
+	<form name="idf" action="idCheck" method="post" onsubmit="return id_check()">
 		<label for="id">아이디</label>
-		<input type="text" name="id" id="id" placeholder="ID" autofocus="autofocus">
-		<button class="btn">확인</button>
+		<input type="text" name="userid" id="userid" class="form-control" placeholder="ID" autofocus="autofocus"><br>
+		<button class="btn btn-outline-success">확인</button>
 	</form>
 	
 	<div id="idResult" style="margin:1em auto">
@@ -39,7 +39,7 @@
 		<h3>${msg}</h3>
 		<br>
 		<c:if test="${result eq 'ok'}">
-			<button onclick="setId('${uid}')">아이디 사용하기</button>
+			<button class="btn btn-outline-success" onclick="setId('${uid}')">아이디 사용하기</button>
 		</c:if>
 	</div>
 	

@@ -19,7 +19,7 @@ public class CommonExceptionAdvice {
 	@Inject
 	private CommonUtil util;
 	
-	@ExceptionHandler(NumberFormatException.class)
+	@ExceptionHandler({NumberFormatException.class, NotUserException.class})
 	public String exceptionHandler(Exception ex, Model m) {
 		String msg = ex.getMessage();
 		

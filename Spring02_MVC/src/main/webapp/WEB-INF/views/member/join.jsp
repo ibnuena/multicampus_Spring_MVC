@@ -10,13 +10,13 @@
 		var url = "idCheck?mode=pop";
 		win = open(url, "idCheck", "width=500, height=500, left=100, top=100");
 		// get 방식 요청
-	}
+	} 
 </script>
 <div class="col-md-10 offset-1">
 	<h2 class="text-center mt-4">Signup Page</h2>
 	<br>
 	<br>
-
+	
 	<form name="mf" action="signup" method="post">
 
 		<table id="userTable" class="table">
@@ -27,7 +27,7 @@
 			</tr>
 			<tr>
 				<th>아이디</th>
-				<td><input type="text" name="userid" class="form-control">
+				<td><input type="text" name="userid" class="form-control" readonly>
 					<button type="button" class="btn btn-success" onclick="openWin()">아이디 중복체크</button>
 				</td>
 			</tr>

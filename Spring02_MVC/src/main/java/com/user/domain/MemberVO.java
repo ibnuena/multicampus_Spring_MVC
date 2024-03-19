@@ -26,7 +26,7 @@ public class MemberVO {
 	}
 	
 	public String getAddr() {
-		return "[" + post + "]" + addr1 + " " + addr2;
+		return "[" + post + "] " + addr1 + " " + addr2;
 	}
 	
 	public String getMstateStr() {
@@ -36,6 +36,8 @@ public class MemberVO {
 			return "정지회원";
 		else if(mstate==-2)
 			return "탈퇴회원";
+		else if(mstate==9)
+			return "관리자";
 		else return "";
 	}
 }

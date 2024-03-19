@@ -7,7 +7,7 @@
 		<c:set var="uid" value="${cartArr[0].userid }" />
 	</c:if>
     <h2 class="text-center text-secondary">
-         [${uid}]  님의 장바구니
+         ${loginUser.name} [${loginUser.userid}]  님의 장바구니
     </h2>
     <br><br>
     <div>

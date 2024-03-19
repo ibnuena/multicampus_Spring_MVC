@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.common.util.CommonUtil;
 import com.user.domain.MemberVO;
@@ -52,33 +53,28 @@ public class MemberController {
 	}
 
 	@PostMapping("/idCheck")
-	public String idCheck(Model m, MemberVO vo) {
+	public String idCheckEnd(Model m, @RequestParam(defaultValue="") String userid) {
 		// post 방식 요청이면 id 사용 가능 여부를 보여주자
-		String id = vo.getUserid();
-		log.info("id : " + id);
-		log.info("vo : " + vo);
-		if (id == null || id.trim().isBlank()) {
+		if (userid == null || userid.trim().isBlank()) {
 			return util.addMsgBack(m, "아이디를 입력하세요");
 		}
 
-		boolean isUse = mService.idCheck(id);
+		boolean isUse = mService.idCheck(userid);
 		
-//		MemberDAOMyBatis dao = new MemberDAOMyBatis();
-//		boolean isUse = dao.idCheck(id);
 		// 사용 가능하면 true, 중복 아이디면 false
-		String msg = (isUse) ? id + "는 사용 가능한 id입니다" : id + "는 이미 사용중인 id입니다";
+		String msg = (isUse) ? userid + "는 사용 가능한 id입니다" : userid + "는 이미 사용중인 id입니다";
 		String result = (isUse) ? "ok" : "fail";
 
 		m.addAttribute("msg", msg);
 		m.addAttribute("result", result);
-		m.addAttribute("uid", id);
+		m.addAttribute("uid", userid);
 		
-		//req.setAttribute("msg", msg);
-		//req.setAttribute("result", result);
-		//req.setAttribute("uid", id);
-
-		
-		return "member/idCheckResult.jsp";
+		return "member/idCheckResult";
+	}
+	
+	@GetMapping("/user/mypage")
+	public String mypage() {
+		return "member/mypage";
 	}
 
 }

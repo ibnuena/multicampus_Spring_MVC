@@ -3,10 +3,10 @@ package com.shop.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.common.util.CommonUtil;
 import com.shop.domain.CartVO;
 import com.shop.service.ShopService;
+import com.user.domain.MemberVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -30,10 +31,12 @@ public class CartController {
 	private CommonUtil util;
 	
 	@PostMapping("/cartAdd") // 상품번호와 수량이 파라미터로 들어옴
-	public String addCart(Model m, CartVO cvo) {
-		log.info("cvo: " + cvo);
+	public String addCart(Model m, CartVO cvo, HttpSession session) {
+//		log.info("cvo: " + cvo);
 		
-		String userid = "hong123";
+		MemberVO user = (MemberVO)session.getAttribute("loginUser");
+		String userid = user.getUserid();
+		
 		cvo.setUserid(userid);
 		// 장바구니에 추가
 		int n = shopService.addCart(cvo); // insert or update
@@ -50,8 +53,9 @@ public class CartController {
 	}
 	
 	@GetMapping("/cartList")
-	public String cartList(Model m) {
-		String userid = "hong123";
+	public String cartList(Model m, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("loginUser");
+		String userid = user.getUserid();
 		
 		// 특정 회원의 장바구니 목록 가져오기
 		List<CartVO> cartArr = shopService.selectCartView(userid);
@@ -78,8 +82,9 @@ public class CartController {
 	}
 	
 	@GetMapping("/cartDelAll")
-	public String cartDeleteAll() {
-		String userid = "hong123";
+	public String cartDeleteAll(HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("loginUser");
+		String userid = user.getUserid();
 		CartVO cartVo = new CartVO();
 		cartVo.setUserid(userid);
 		int n = shopService.delCartAll(cartVo);
