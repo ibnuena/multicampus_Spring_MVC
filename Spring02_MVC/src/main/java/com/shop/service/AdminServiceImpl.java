@@ -23,8 +23,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<CategoryVO> getDowncategory(int upCg_code) {
-		// TODO Auto-generated method stub
-		return null;
+		return prodMapper.getDownCategory(upCg_code);
 	}
 
 	@Override
