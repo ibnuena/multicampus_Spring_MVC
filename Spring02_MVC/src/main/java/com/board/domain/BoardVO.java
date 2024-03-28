@@ -6,6 +6,7 @@ import lombok.Data;
 public class BoardVO {
 	
 	private String mode; // write(원글), edit(수정), rewrite(답변글)
+	private int newImg;
 	
 	private int num;
 	private String userid;
